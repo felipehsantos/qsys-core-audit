@@ -63,7 +63,7 @@ table.insert(graphics,{
   })			
   table.insert(graphics,{
     Type = "Text",
-    Text = "Last Design Download",
+    Text = "Lastest Design Download",
     Position = {12,147},
     Size = {128,16},
     FontSize = 11,
@@ -71,7 +71,7 @@ table.insert(graphics,{
   })			
   table.insert(graphics,{
     Type = "Text",
-    Text = "Last Core Boot",
+    Text = "Lastest Core Boot",
     Position = {12,163},
     Size = {128,16},
     FontSize = 11,
