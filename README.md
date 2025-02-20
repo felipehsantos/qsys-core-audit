@@ -12,8 +12,8 @@ Displays information directly in the design such as:
 - Plataform(Core Model)
 - Design Name
 - Design Code(ID)
-- Timestanp last design
-- Timestanp last boot
+- Timestamp last design
+- Timestamp last boot
 - Core IP/Mac
 
 
