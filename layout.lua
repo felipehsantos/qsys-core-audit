@@ -52,20 +52,12 @@ table.insert(graphics,{
     Size = {128,16},
     FontSize = 11,
     HTextAlign = "Left"
-  })	
-  table.insert(graphics,{
-    Type = "Text",
-    Text = "Design Code(ID)",
-    Position = {12,131},
-    Size = {128,16},
-    FontSize = 11,
-    HTextAlign = "Left"
   })			
   table.insert(graphics,{
     Type = "Text",
     Text = "Lastest Design Download",
     Position = {12,147},
-    Size = {128,16},
+    Size = {140,16},
     FontSize = 11,
     HTextAlign = "Left"
   })			
