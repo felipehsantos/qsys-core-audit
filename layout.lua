@@ -9,17 +9,25 @@ if CurrentPage == "Info" then
     Fill = {200,200,200},
     StrokeWidth = 0,
     Position = {0,0},
-    Size = {360,290}
+    Size = {360,346}
   })
 table.insert(graphics,{
     Type = "Text",
-    Text = "Design Info",
+    Text = "Audit Core",
     Position = {12,8},
-    Size = {157,65},
+    Size = {157,41},
   Font="Roboto",
     FontSize = 25,
   FontStyle="Bold",
     HTextAlign = "Left"
+  })
+	table.insert(graphics,{
+    Type = "Header",
+    Text = "Design Info",
+    Position = {12,52},
+    Size = {330,14},
+    FontSize = 12,
+    HTextAlign = "Center"
   })
   table.insert(graphics,{
     Type = "Text",
@@ -68,11 +76,19 @@ table.insert(graphics,{
     Size = {128,16},
     FontSize = 11,
     HTextAlign = "Left"
-  })		
+  })
+  table.insert(graphics,{
+    Type = "Header",
+    Text = "Network",
+    Position = {14,200},
+    Size = {330,14},
+    FontSize = 12,
+    HTextAlign = "Center"
+  })
   table.insert(graphics,{
     Type = "Text",
     Text = "IP",
-    Position = {138,201},
+    Position = {140,228},
     Size = {118,16},
     FontSize = 11,
     HTextAlign = "Center"
@@ -80,7 +96,7 @@ table.insert(graphics,{
   table.insert(graphics,{
     Type = "Text",
     Text = "Mac Address",
-    Position = {256,201},
+    Position = {258,228},
     Size = {88,16},
     FontSize = 11,
     HTextAlign = "Center"
@@ -88,7 +104,7 @@ table.insert(graphics,{
   table.insert(graphics,{
   Type = "Text",
   Text = "Refresh Network Info",
-  Position = {10,249},
+  Position = {14,318},
   Size = {128,16},
   FontSize = 11,
   HTextAlign = "Left"
@@ -161,7 +177,7 @@ layout["LastBoot"]={
   HTextAlign="Left"
 }
 layout["Network_LAN_A 1"]={
-  Position={12,218},
+  Position={14,245},
   Size={126,16},
   PrettyName="Network A Name",
   Style="Text",
@@ -172,7 +188,7 @@ layout["Network_LAN_A 1"]={
   HTextAlign="Left"
 }
 layout["Network_LAN_A 2"]={
-  Position={140,217},
+  Position={142,244},
   Size={116,16},
   PrettyName="Network A IP",
   Style="Text",
@@ -183,7 +199,7 @@ layout["Network_LAN_A 2"]={
   HTextAlign="Center"
 }
 layout["Network_LAN_A 3"]={
-  Position={256,217},
+  Position={258,244},
   Size={88,16},
   PrettyName="Network A Macaddress",
   Style="Text",
@@ -194,7 +210,7 @@ layout["Network_LAN_A 3"]={
   HTextAlign="Center"
 }
 layout["Network_LAN_B 1"]={
-  Position={12,233},
+  Position={14,260},
   Size={126,16},
   PrettyName="Network B Name",
   Style="Text",
@@ -205,7 +221,7 @@ layout["Network_LAN_B 1"]={
   HTextAlign="Left"
 }
 layout["Network_LAN_B 2"]={
-  Position={140,233},
+  Position={142,260},
   Size={116,16},
   PrettyName="Network B IP",
   Style="Text",
@@ -216,7 +232,7 @@ layout["Network_LAN_B 2"]={
   HTextAlign="Center"
 }
 layout["Network_LAN_B 3"]={
-  Position={256,233},
+  Position={258,260},
   Size={88,16},
   PrettyName="Network B Macaddress",
   Style="Text",
@@ -226,12 +242,79 @@ layout["Network_LAN_B 3"]={
   FontSize=9,
   HTextAlign="Center"
 }
+layout["Network_AUX_A 1"]={
+  Position={14,276},
+  Size={126,16},
+  PrettyName="Network Aux A Name",
+  Style="Text",
+  IsReadOnly=true, 
+  TextColor={0,0,0},
+  TextBoxStyle="NoBackground",
+  FontSize=11,
+  HTextAlign="Left"
+}
+layout["Network_AUX_A 2"]={
+  Position={142,275},
+  Size={116,16},
+  PrettyName="Network Aux A IP",
+  Style="Text",
+  IsReadOnly=true, 
+  TextColor={0,0,0},
+  TextBoxStyle="Meter Background",
+  FontSize=9,
+  HTextAlign="Center"
+}
+layout["Network_AUX_A 3"]={
+  Position={258,275},
+  Size={88,16},
+  PrettyName="Network Aux B Macaddress",
+  Style="Text",
+  IsReadOnly=true, 
+  TextColor={0,0,0},
+  TextBoxStyle="Meter Background",
+  FontSize=9,
+  HTextAlign="Center"
+}
+layout["Network_AUX_B 1"]={
+  Position={14,291},
+  Size={126,16},
+  PrettyName="Network Aux B Name",
+  Style="Text",
+  IsReadOnly=true, 
+  TextColor={0,0,0},
+  TextBoxStyle="NoBackground",
+  FontSize=11,
+  HTextAlign="Left"
+}
+layout["Network_AUX_B 2"]={
+  Position={142,291},
+  Size={116,16},
+  PrettyName="Network Aux B IP",
+  Style="Text",
+  IsReadOnly=true, 
+  TextColor={0,0,0},
+  TextBoxStyle="Meter Background",
+  FontSize=9,
+  HTextAlign="Center"
+}
+layout["Network_AUX_B 3"]={
+  Position={258,291},
+  Size={88,16},
+  PrettyName="Network Aux B Macaddress",
+  Style="Text",
+  IsReadOnly=true, 
+  TextColor={0,0,0},
+  TextBoxStyle="Meter Background",
+  FontSize=9,
+  HTextAlign="Center"
+}
+
 --Only Buttons---------------------------------------------------
 layout["RefreshNetworkInfo"] = {
   PrettyName = "Refresh Net Info",
   Style = "Button",
   --Legend ="RefreshNetworkInfo",
-  Position = {138,249},
+  Position = {142,318},
   Size = {36,16},
   --Color = {0,0,0}
 }

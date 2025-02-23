@@ -6,11 +6,13 @@ Releases: v0.1- Beta[Script] 21/12/2023
 v0.1.3 - 16/08/2024 
 v0.1.4 - 19/02/2025
     -build in plugin compiler
+v0.1.5 - 22/02/2025
+    -add for show multiples network interfaces
 ]]
 -- Information block for the plugin
 PluginInfo = {
  
-  Version = "0.1.4",
+  Version = "0.1.5",
   BuildVersion = "0.0.0.0",
   Id = "c2c12cc9-ec70-4761-9b12-e549b0cdd084",
   Author = "FHS",
@@ -220,6 +222,20 @@ function GetControls(props)
   	Count 			= 3
   	},
   	{
+  		Name 			= "Network_AUX_A",
+  		ControlType 	= "Text",
+  		UserPin 	    = true,
+  		PinStyle 	    = "Output",
+  		Count 			= 3
+  	},
+  	{
+  		Name 			= "Network_AUX_B",
+  		ControlType 	= "Text",
+  		UserPin 	    = true,
+  		PinStyle 	    = "Output",
+  		Count 			= 3
+  	},
+  	{
   	Name 			= "RefreshNetworkInfo",
   	ControlType 	= "Button",
   	ButtonType     = "Trigger",
@@ -246,17 +262,25 @@ function GetControlLayout(props)
       Fill = {200,200,200},
       StrokeWidth = 0,
       Position = {0,0},
-      Size = {360,290}
+      Size = {360,346}
     })
   table.insert(graphics,{
       Type = "Text",
-      Text = "Design Info",
+      Text = "Audit Core",
       Position = {12,8},
-      Size = {157,65},
+      Size = {157,41},
     Font="Roboto",
       FontSize = 25,
     FontStyle="Bold",
       HTextAlign = "Left"
+    })
+  	table.insert(graphics,{
+      Type = "Header",
+      Text = "Design Info",
+      Position = {12,52},
+      Size = {330,14},
+      FontSize = 12,
+      HTextAlign = "Center"
     })
     table.insert(graphics,{
       Type = "Text",
@@ -305,11 +329,19 @@ function GetControlLayout(props)
       Size = {128,16},
       FontSize = 11,
       HTextAlign = "Left"
-    })		
+    })
+    table.insert(graphics,{
+      Type = "Header",
+      Text = "Network",
+      Position = {14,200},
+      Size = {330,14},
+      FontSize = 12,
+      HTextAlign = "Center"
+    })
     table.insert(graphics,{
       Type = "Text",
       Text = "IP",
-      Position = {138,201},
+      Position = {140,228},
       Size = {118,16},
       FontSize = 11,
       HTextAlign = "Center"
@@ -317,7 +349,7 @@ function GetControlLayout(props)
     table.insert(graphics,{
       Type = "Text",
       Text = "Mac Address",
-      Position = {256,201},
+      Position = {258,228},
       Size = {88,16},
       FontSize = 11,
       HTextAlign = "Center"
@@ -325,7 +357,7 @@ function GetControlLayout(props)
     table.insert(graphics,{
     Type = "Text",
     Text = "Refresh Network Info",
-    Position = {10,249},
+    Position = {14,318},
     Size = {128,16},
     FontSize = 11,
     HTextAlign = "Left"
@@ -398,7 +430,7 @@ function GetControlLayout(props)
     HTextAlign="Left"
   }
   layout["Network_LAN_A 1"]={
-    Position={12,218},
+    Position={14,245},
     Size={126,16},
     PrettyName="Network A Name",
     Style="Text",
@@ -409,7 +441,7 @@ function GetControlLayout(props)
     HTextAlign="Left"
   }
   layout["Network_LAN_A 2"]={
-    Position={140,217},
+    Position={142,244},
     Size={116,16},
     PrettyName="Network A IP",
     Style="Text",
@@ -420,7 +452,7 @@ function GetControlLayout(props)
     HTextAlign="Center"
   }
   layout["Network_LAN_A 3"]={
-    Position={256,217},
+    Position={258,244},
     Size={88,16},
     PrettyName="Network A Macaddress",
     Style="Text",
@@ -431,7 +463,7 @@ function GetControlLayout(props)
     HTextAlign="Center"
   }
   layout["Network_LAN_B 1"]={
-    Position={12,233},
+    Position={14,260},
     Size={126,16},
     PrettyName="Network B Name",
     Style="Text",
@@ -442,7 +474,7 @@ function GetControlLayout(props)
     HTextAlign="Left"
   }
   layout["Network_LAN_B 2"]={
-    Position={140,233},
+    Position={142,260},
     Size={116,16},
     PrettyName="Network B IP",
     Style="Text",
@@ -453,7 +485,7 @@ function GetControlLayout(props)
     HTextAlign="Center"
   }
   layout["Network_LAN_B 3"]={
-    Position={256,233},
+    Position={258,260},
     Size={88,16},
     PrettyName="Network B Macaddress",
     Style="Text",
@@ -463,12 +495,79 @@ function GetControlLayout(props)
     FontSize=9,
     HTextAlign="Center"
   }
+  layout["Network_AUX_A 1"]={
+    Position={14,276},
+    Size={126,16},
+    PrettyName="Network Aux A Name",
+    Style="Text",
+    IsReadOnly=true, 
+    TextColor={0,0,0},
+    TextBoxStyle="NoBackground",
+    FontSize=11,
+    HTextAlign="Left"
+  }
+  layout["Network_AUX_A 2"]={
+    Position={142,275},
+    Size={116,16},
+    PrettyName="Network Aux A IP",
+    Style="Text",
+    IsReadOnly=true, 
+    TextColor={0,0,0},
+    TextBoxStyle="Meter Background",
+    FontSize=9,
+    HTextAlign="Center"
+  }
+  layout["Network_AUX_A 3"]={
+    Position={258,275},
+    Size={88,16},
+    PrettyName="Network Aux B Macaddress",
+    Style="Text",
+    IsReadOnly=true, 
+    TextColor={0,0,0},
+    TextBoxStyle="Meter Background",
+    FontSize=9,
+    HTextAlign="Center"
+  }
+  layout["Network_AUX_B 1"]={
+    Position={14,291},
+    Size={126,16},
+    PrettyName="Network Aux B Name",
+    Style="Text",
+    IsReadOnly=true, 
+    TextColor={0,0,0},
+    TextBoxStyle="NoBackground",
+    FontSize=11,
+    HTextAlign="Left"
+  }
+  layout["Network_AUX_B 2"]={
+    Position={142,291},
+    Size={116,16},
+    PrettyName="Network Aux B IP",
+    Style="Text",
+    IsReadOnly=true, 
+    TextColor={0,0,0},
+    TextBoxStyle="Meter Background",
+    FontSize=9,
+    HTextAlign="Center"
+  }
+  layout["Network_AUX_B 3"]={
+    Position={258,291},
+    Size={88,16},
+    PrettyName="Network Aux B Macaddress",
+    Style="Text",
+    IsReadOnly=true, 
+    TextColor={0,0,0},
+    TextBoxStyle="Meter Background",
+    FontSize=9,
+    HTextAlign="Center"
+  }
+  
   --Only Buttons---------------------------------------------------
   layout["RefreshNetworkInfo"] = {
     PrettyName = "Refresh Net Info",
     Style = "Button",
     --Legend ="RefreshNetworkInfo",
-    Position = {138,249},
+    Position = {142,318},
     Size = {36,16},
     --Color = {0,0,0}
   }
@@ -508,7 +607,6 @@ end
 
 --Start event based logic
 if Controls then
-  
   rapidjson = require("rapidjson")
   
   qsysVersion                 =Controls["Q-SYSVersion"]
@@ -518,13 +616,10 @@ if Controls then
   downloadTimestamp           =Controls.TimeStampDownload
   lastBootTimeStamp           =Controls.LastBoot
   refreshnet                  =Controls.RefreshNetworkInfo
-  networkInterfaceA           =Controls.Network_LAN_A[1]
-  networkIPA                  =Controls.Network_LAN_A[2]
-  networkMACA                 =Controls.Network_LAN_A[3]
-  networkInterfaceB           =Controls.Network_LAN_B[1]
-  networkIPB                  =Controls.Network_LAN_B[2]
-  networkMACB                 =Controls.Network_LAN_B[3]
-  
+  showNetworkInfo             = {Controls.Network_LAN_A,
+                                 Controls.Network_LAN_B,
+                                 Controls.Network_AUX_A,
+                                 Controls.Network_AUX_B}
   designStatus                =Design.GetStatus()
   
   
@@ -539,30 +634,33 @@ if Controls then
   end
   
   function qtyInterface()
-  
-  networkInterfaces           =Network.Interfaces()
-  
-  local qty
-    for key,value in pairs(networkInterfaces) do
-    qty=key    
+    networkInterfaces           =Network.Interfaces()
+    local qty
+      for key,value in pairs(networkInterfaces) do
+      qty=key    
+      end
+      print("Found "..qty.." Interface(s)")
+      return qty
     end
-    print("Found "..qty.." Interface(s)")
-    return qty
-  end 
+  
+    function fnDisableNetworkInfo()
+      for interfaces = 1, 4 do
+          for properties = 1, 3 do
+            showNetworkInfo[interfaces][properties].IsDisabled= true
+          end
+      end
+    end
   
   function fnShowNetwork()
-  networkInterfaces           =Network.Interfaces()
-    networkInterfaceA.String    =networkInterfaces[1]["Interface"]
-    networkIPA.String           =networkInterfaces[1]["Address"]
-    networkMACA.String          =networkInterfaces[1]["MACAddress"]
-    if qtyInterface()>1 then
-      networkInterfaceB.String    =networkInterfaces[2]["Interface"]
-      networkIPB.String           =networkInterfaces[2]["Address"]
-      networkMACB.String          =networkInterfaces[2]["MACAddress"]
-    else
-      networkInterfaceB.String    ="**"
-      networkIPB.String           ="**"
-      networkMACB.String          ="**"
+    local networkProperties     ={"Interface","Address","MACAddress"}
+    fnDisableNetworkInfo()
+    for interfaces = 1, qtyInterface() do
+      if interfaces<=4 then
+        for properties = 1, 3, 1 do
+          showNetworkInfo[interfaces][properties].IsDisabled= false
+          showNetworkInfo[interfaces][properties].String =networkInterfaces[interfaces][networkProperties[properties]]
+        end
+      end
     end
     print("Network Info Update")
   end
@@ -610,17 +708,16 @@ if Controls then
   
   function fnInitialize()
     if fnFileExist("audit.json","design/") then --check if a file was created
-    print("dbg-> Reading File...")
-    fnReadFile("audit.json","design/")
-    fnCompareId(designStatus.DesignCode,oldData.DesignCode)
+      print("dbg-> Reading File...")
+      fnReadFile("audit.json","design/")
+      fnCompareId(designStatus.DesignCode,oldData.DesignCode)
     else
-    print("dbg-> Creating File...")
-    fnCreateFile("audit.json","design/")
-    fnShowFirstData()
-    print("dbg-> OK, It's a new Design\n First Plugin Execution!")
-  
+      print("dbg-> Creating File...")
+      fnCreateFile("audit.json","design/")
+      fnShowFirstData()
+      print("dbg-> OK, It's a new Design\n First Plugin Execution!")
     end
-  fnShowNetwork()
+    fnShowNetwork()
   end
   
   refreshnet.EventHandler = function ()
@@ -629,5 +726,5 @@ if Controls then
   
   fnInitialize()
   lastBootTimeStamp.String = os.date()
-  qsysVersion.String          =System.Version
+  qsysVersion.String       =System.Version
 end

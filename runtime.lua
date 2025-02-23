@@ -1,4 +1,3 @@
-
 rapidjson = require("rapidjson")
 
 qsysVersion                 =Controls["Q-SYSVersion"]
@@ -8,13 +7,10 @@ designCode                  =Controls.DesignCode
 downloadTimestamp           =Controls.TimeStampDownload
 lastBootTimeStamp           =Controls.LastBoot
 refreshnet                  =Controls.RefreshNetworkInfo
-networkInterfaceA           =Controls.Network_LAN_A[1]
-networkIPA                  =Controls.Network_LAN_A[2]
-networkMACA                 =Controls.Network_LAN_A[3]
-networkInterfaceB           =Controls.Network_LAN_B[1]
-networkIPB                  =Controls.Network_LAN_B[2]
-networkMACB                 =Controls.Network_LAN_B[3]
-
+showNetworkInfo             = {Controls.Network_LAN_A,
+                               Controls.Network_LAN_B,
+                               Controls.Network_AUX_A,
+                               Controls.Network_AUX_B}
 designStatus                =Design.GetStatus()
 
 
@@ -29,30 +25,33 @@ temp = dir.get(directory)
 end
 
 function qtyInterface()
-
-networkInterfaces           =Network.Interfaces()
-
-local qty
-  for key,value in pairs(networkInterfaces) do
-  qty=key    
+  networkInterfaces           =Network.Interfaces()
+  local qty
+    for key,value in pairs(networkInterfaces) do
+    qty=key    
+    end
+    print("Found "..qty.." Interface(s)")
+    return qty
   end
-  print("Found "..qty.." Interface(s)")
-  return qty
-end 
+
+  function fnDisableNetworkInfo()
+    for interfaces = 1, 4 do
+        for properties = 1, 3 do
+          showNetworkInfo[interfaces][properties].IsDisabled= true
+        end
+    end
+  end
 
 function fnShowNetwork()
-networkInterfaces           =Network.Interfaces()
-  networkInterfaceA.String    =networkInterfaces[1]["Interface"]
-  networkIPA.String           =networkInterfaces[1]["Address"]
-  networkMACA.String          =networkInterfaces[1]["MACAddress"]
-  if qtyInterface()>1 then
-    networkInterfaceB.String    =networkInterfaces[2]["Interface"]
-    networkIPB.String           =networkInterfaces[2]["Address"]
-    networkMACB.String          =networkInterfaces[2]["MACAddress"]
-  else
-    networkInterfaceB.String    ="**"
-    networkIPB.String           ="**"
-    networkMACB.String          ="**"
+  local networkProperties     ={"Interface","Address","MACAddress"}
+  fnDisableNetworkInfo()
+  for interfaces = 1, qtyInterface() do
+    if interfaces<=4 then
+      for properties = 1, 3, 1 do
+        showNetworkInfo[interfaces][properties].IsDisabled= false
+        showNetworkInfo[interfaces][properties].String =networkInterfaces[interfaces][networkProperties[properties]]
+      end
+    end
   end
   print("Network Info Update")
 end
@@ -100,17 +99,16 @@ end
 
 function fnInitialize()
   if fnFileExist("audit.json","design/") then --check if a file was created
-  print("dbg-> Reading File...")
-  fnReadFile("audit.json","design/")
-  fnCompareId(designStatus.DesignCode,oldData.DesignCode)
+    print("dbg-> Reading File...")
+    fnReadFile("audit.json","design/")
+    fnCompareId(designStatus.DesignCode,oldData.DesignCode)
   else
-  print("dbg-> Creating File...")
-  fnCreateFile("audit.json","design/")
-  fnShowFirstData()
-  print("dbg-> OK, It's a new Design\n First Plugin Execution!")
-
+    print("dbg-> Creating File...")
+    fnCreateFile("audit.json","design/")
+    fnShowFirstData()
+    print("dbg-> OK, It's a new Design\n First Plugin Execution!")
   end
-fnShowNetwork()
+  fnShowNetwork()
 end
 
 refreshnet.EventHandler = function ()
@@ -119,4 +117,4 @@ end
 
 fnInitialize()
 lastBootTimeStamp.String = os.date()
-qsysVersion.String          =System.Version
+qsysVersion.String       =System.Version

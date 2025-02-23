@@ -56,6 +56,20 @@ local ctrls = {
 	Count 			= 3
 	},
 	{
+		Name 			= "Network_AUX_A",
+		ControlType 	= "Text",
+		UserPin 	    = true,
+		PinStyle 	    = "Output",
+		Count 			= 3
+	},
+	{
+		Name 			= "Network_AUX_B",
+		ControlType 	= "Text",
+		UserPin 	    = true,
+		PinStyle 	    = "Output",
+		Count 			= 3
+	},
+	{
 	Name 			= "RefreshNetworkInfo",
 	ControlType 	= "Button",
 	ButtonType     = "Trigger",
