@@ -7,7 +7,7 @@ v0.1.3 - 16/08/2024
 v0.1.4 - 19/02/2025
     -build in plugin compiler
 v0.1.5 - 22/02/2025
-    -add for show multiples network interfaces
+    -show multiples network interfaces
 ]]
 -- Information block for the plugin
 PluginInfo = {
@@ -44,41 +44,23 @@ end
 -- Optional function to define model if plugin supports more than one model
 function GetModel(props)
   local model = {}
-  --[[if props.Model ~= nil and props.Model.Value ~= "" then
-    table.insert(model, { props.Model.Value } )
-  else
-    table.insert(model, { "Base Model" } )
-  end]]
  return model
 end
 
 -- Define User configurable Properties of the plugin
 function GetProperties()
   local props = {}
-  --[[table.insert(props, {
-    Name = "Debug Print",
-    Type = "enum",
-    Choices = {"None", "Tx/Rx", "Tx", "Rx", "Function Calls", "All"},
-    Value = "None"
-  })]]
   return props
 end
 
 -- Optional function to define pins on the plugin that are not connected to a Control
 function GetPins(props)
   local pins = {}
-  --[[table.insert(pins,{
-    Name = "Audio Output",
-    Direction = "output",
-  })]]
   return pins
 end
 
 -- Optional function to update available properties when properties are altered by the user
 function RectifyProperties(props)
-  --[[if props.plugin_show_debug.Value == false then 
-    props["Debug Print"].IsHidden = true 
-  end]]
   return props
 end
 
@@ -157,7 +139,6 @@ end
 -- Optional function to define wiring of components used within the plugin
 function GetWiring(props)
   local wiring = {}
-  --[[table.insert( wiring, { "Audio Output", "main_mixer Output 1" } )]]
   return wiring
 end
 
