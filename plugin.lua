@@ -22,27 +22,23 @@ end
 -- Optional function to define model if plugin supports more than one model
 function GetModel(props)
   local model = {}
-  --[[ #include "model.lua" ]]
  return model
 end
 
 -- Define User configurable Properties of the plugin
 function GetProperties()
   local props = {}
-  --[[ #include "properties.lua" ]]
   return props
 end
 
 -- Optional function to define pins on the plugin that are not connected to a Control
 function GetPins(props)
   local pins = {}
-  --[[ #include "pins.lua" ]]
   return pins
 end
 
 -- Optional function to update available properties when properties are altered by the user
 function RectifyProperties(props)
-  --[[ #include "rectify_properties.lua" ]]
   return props
 end
 
@@ -56,7 +52,6 @@ end
 -- Optional function to define wiring of components used within the plugin
 function GetWiring(props)
   local wiring = {}
-  --[[ #include "wiring.lua" ]]
   return wiring
 end
 
